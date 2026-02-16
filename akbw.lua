@@ -1,119 +1,118 @@
-local a1 = game:GetService("Players")
-local a2 = game:GetService("RunService")
-local a3 = game:GetService("UserInputService")
-local a4 = game:GetService("Lighting")
+local _0xA=game:GetService("Players");local _0xB=game:GetService("RunService");local _0xC=game:GetService("UserInputService");local _0xD=game:GetService("Lighting")
+local _0xE=_0xA.LocalPlayer;local _0xF=true
 
-local b1 = a1.LocalPlayer
-local b2 = true
+local function _0xS(t)return string.char(table.unpack(t))end
 
-local c1 = {
-    ["Blue"]   = Color3.fromRGB(0,170,255),
-    ["Orange"] = Color3.fromRGB(255,140,0),
-    ["Pink"]   = Color3.fromRGB(255,105,180),
-    ["Yellow"] = Color3.fromRGB(255,255,0)
+local _0xT={
+    [_0xS({66,108,117,101})]=Color3.fromRGB(0,170,255),
+    [_0xS({79,114,97,110,103,101})]=Color3.fromRGB(255,140,0),
+    [_0xS({80,105,110,107})]=Color3.fromRGB(255,105,180),
+    [_0xS({89,101,108,108,111,119})]=Color3.fromRGB(255,255,0)
 }
 
-a3.InputBegan:Connect(function(d1,d2)
-    if d2 then return end
-    if d1.KeyCode == Enum.KeyCode.L then
-        b2 = not b2
+local function _0xJ(x)return (x*3.14159%7)/2 end
+
+_0xC.InputBegan:Connect(function(_0x1,_0x2)
+    if _0x2 then return end
+    if _0x1.KeyCode==Enum.KeyCode.L then
+        _0xF=not _0xF
     end
 end)
 
-local function e1(f1)
-    if not f1.Team then return nil end
-    return c1[f1.Team.Name]
+local function _0xK(p)
+    if not p.Team then return nil end
+    return _0xT[p.Team.Name]
 end
 
-local function e2(f2)
-    return b1.Team and f2.Team == b1.Team
+local function _0xL(p)
+    return _0xE.Team and p.Team==_0xE.Team
 end
 
-local function e3(g1)
-    if g1 == b1 then return end
+local function _0xM(p)
+    if p==_0xE then return end
 
-    local function h1(i1)
-        local j1 = i1:WaitForChild("Humanoid",10)
-        local j2 = i1:WaitForChild("Head",10)
-        local j3 = i1:WaitForChild("HumanoidRootPart",10)
-        if not j1 or not j2 or not j3 then return end
+    local function _0xN(c)
+        local h=c:WaitForChild("Humanoid",10)
+        local hd=c:WaitForChild("Head",10)
+        local hrp=c:WaitForChild("HumanoidRootPart",10)
+        if not h or not hd or not hrp then return end
 
-        local k1 = Instance.new("Highlight")
-        k1.Name = "X1"
-        k1.FillTransparency = 0.5
-        k1.OutlineTransparency = 0
-        k1.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-        k1.Parent = i1
+        local hi=Instance.new("Highlight")
+        hi.Name=_0xS({88,49})
+        hi.FillTransparency=0.5
+        hi.OutlineTransparency=0
+        hi.DepthMode=Enum.HighlightDepthMode.AlwaysOnTop
+        hi.Parent=c
 
-        local k2 = Instance.new("BillboardGui")
-        k2.Name = "X2"
-        k2.Size = UDim2.new(0,200,0,50)
-        k2.StudsOffset = Vector3.new(0,3,0)
-        k2.AlwaysOnTop = true
-        k2.Parent = j2
+        local bg=Instance.new("BillboardGui")
+        bg.Name=_0xS({88,50})
+        bg.Size=UDim2.new(0,200,0,50)
+        bg.StudsOffset=Vector3.new(0,3,0)
+        bg.AlwaysOnTop=true
+        bg.Parent=hd
 
-        local k3 = Instance.new("TextLabel")
-        k3.Size = UDim2.new(1,0,1,0)
-        k3.BackgroundTransparency = 1
-        k3.TextStrokeTransparency = 0
-        k3.TextSize = 16
-        k3.Font = Enum.Font.SourceSansBold
-        k3.Parent = k2
+        local tl=Instance.new("TextLabel")
+        tl.Size=UDim2.new(1,0,1,0)
+        tl.BackgroundTransparency=1
+        tl.TextStrokeTransparency=0
+        tl.TextSize=16
+        tl.Font=Enum.Font.SourceSansBold
+        tl.Parent=bg
 
-        local l1
-        l1 = a2.RenderStepped:Connect(function()
+        local con
+        con=_0xB.RenderStepped:Connect(function()
 
-            if not i1.Parent or j1.Health <= 0 then
-                l1:Disconnect()
-                k1:Destroy()
-                k2:Destroy()
+            if not c.Parent or h.Health<=0 then
+                con:Disconnect()
+                hi:Destroy()
+                bg:Destroy()
                 return
             end
 
-            if not b2 or e2(g1) then
-                k1.Enabled = false
-                k2.Enabled = false
+            if not _0xF or _0xL(p) then
+                hi.Enabled=false
+                bg.Enabled=false
                 return
             end
 
-            local m1 = e1(g1)
-            if not m1 then return end
+            local col=_0xK(p)
+            if not col then return end
 
-            k1.Enabled = true
-            k2.Enabled = true
+            hi.Enabled=true
+            bg.Enabled=true
 
-            k1.FillColor = m1
-            k1.OutlineColor = m1
-            k3.TextColor3 = m1
+            hi.FillColor=col
+            hi.OutlineColor=col
+            tl.TextColor3=col
 
-            local n1 = workspace.CurrentCamera
-            local n2 = math.floor((j3.Position - n1.CFrame.Position).Magnitude)
-            local n3 = math.floor(j1.Health)
+            local cam=workspace.CurrentCamera
+            local dist=math.floor((hrp.Position-cam.CFrame.Position).Magnitude)
+            local hp=math.floor(h.Health)
 
-            k3.Text = string.format("%s\n체력: %d | %d 스터드", g1.Name, n3, n2)
+            tl.Text=string.format("%s\nHP:%d | %d",p.Name,hp,dist)
 
-            -- 더미 연산 (난독화용)
-            local _ = (n2 * 2) / 2
+            local _=_0xJ(dist)
+            if _==9999 then print("never") end
         end)
     end
 
-    g1.CharacterAdded:Connect(h1)
-    if g1.Character then
-        h1(g1.Character)
+    p.CharacterAdded:Connect(_0xN)
+    if p.Character then
+        _0xN(p.Character)
     end
 end
 
-for _, z1 in ipairs(a1:GetPlayers()) do
-    e3(z1)
+for _,v in ipairs(_0xA:GetPlayers()) do
+    _0xM(v)
 end
 
-a1.PlayerAdded:Connect(e3)
+_0xA.PlayerAdded:Connect(_0xM)
 
-addcmd('nofog',{},function(q1,q2)
-    a4.FogEnd = 100000
-    for _,r1 in pairs(a4:GetDescendants()) do
-        if r1:IsA("Atmosphere") then
-            r1:Destroy()
+addcmd('nofog',{},function()
+    _0xD.FogEnd=100000
+    for _,v in pairs(_0xD:GetDescendants()) do
+        if v:IsA("Atmosphere") then
+            v:Destroy()
         end
     end
 end)
