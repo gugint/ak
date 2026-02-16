@@ -1,18 +1,14 @@
-local function _x(s) return game:GetService("Players") end -- 복호화 자리 표시
+local function _x(s) return game:GetService("Players") end 
 local _a,_b,_c,_d,_e,_f,_g,_h,_i={},game:GetService("ReplicatedStorage"),game:GetService("Players").LocalPlayer,nil,nil,nil,nil,nil,nil
 
--- 문자열 복호화 테이블 (실제 이름들을 여기서만 관리)
+
 local _tbl={
 ["inv"]="Inventories",
 ["wpn"]="SwordHit",
 ["hrp"]="HumanoidRootPart"
 }
-
--- 인벤토리 접근
 _a=_b[_tbl["inv"]]:WaitForChild(_c.Name)
 _e=_b.rbxts_include.node_modules["@rbxts"].net.out._NetManaged[_tbl["wpn"]]
-
--- 무작위화된 함수 + 가짜 연산
 local function _y()
  local _z={"wood_sword","noctium_blade","noctium_blade_2","noctium_blade_3","noctium_blade_4","stone_sword","iron_sword","diamond_sword","emerald_sword"}
  for _,v in ipairs(_z) do local t=_a:FindFirstChild(v) if t then return t end end
@@ -50,7 +46,7 @@ repeat task.wait() do
  if tgt~=_target or tick()-_last>=0.2 then
   _target=tgt
   _last=tick()
-  _flag=false -- raycast 결과, 여기선 생략
+  _flag=false 
  end
  if _flag then goto cont end
  local dir=(pos-tpos).Unit
