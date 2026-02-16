@@ -4,11 +4,7 @@ local UserInputService = game:GetService("UserInputService")
 local Lighting = game:GetService("Lighting")
 
 local LocalPlayer = Players.LocalPlayer
-
--- ESP 토글
 local ESP_ENABLED = true
-
--- 팀별 색상
 local TEAM_COLORS = {
     Blue   = Color3.fromRGB(0, 170, 255),
     Orange = Color3.fromRGB(255, 140, 0),
@@ -16,7 +12,6 @@ local TEAM_COLORS = {
     Yellow = Color3.fromRGB(255, 255, 0)
 }
 
--- L 키로 ESP ON / OFF
 UserInputService.InputBegan:Connect(function(input, gp)
     if gp then return end
     if input.KeyCode == Enum.KeyCode.L then
@@ -41,8 +36,6 @@ local function createESP(player)
         local head = character:WaitForChild("Head", 10)
         local root = character:WaitForChild("HumanoidRootPart", 10)
         if not humanoid or not head or not root then return end
-
-        -- Highlight
         local highlight = Instance.new("Highlight")
         highlight.Name = "ESPHighlight"
         highlight.FillTransparency = 0.5
@@ -50,7 +43,7 @@ local function createESP(player)
         highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
         highlight.Parent = character
 
-        -- Billboard
+
         local billboard = Instance.new("BillboardGui")
         billboard.Name = "ESPBillboard"
         billboard.Size = UDim2.new(0, 200, 0, 50)
@@ -111,18 +104,15 @@ local function createESP(player)
     end
 end
 
--- 기존 플레이어
 for _, player in ipairs(Players:GetPlayers()) do
     createESP(player)
 end
 
--- 새 플레이어
+
 Players.PlayerAdded:Connect(createESP)
 
 
--- =========================
--- nofog 명령어 추가
--- =========================
+
 addcmd('nofog', {}, function(args, speaker)
     Lighting.FogEnd = 100000
     for i, v in pairs(Lighting:GetDescendants()) do
