@@ -41,7 +41,9 @@ local function getClosestEnemy()
     local hrp = char:FindFirstChild("HumanoidRootPart")
     if not hrp then return nil end
 
-    local lpPos = hrp.Position
+if not lp.Character or not lp.Character:FindFirstChild("HumanoidRootPart") then
+    continue
+end
     local closest = nil
     local closestDist = 35 
 
